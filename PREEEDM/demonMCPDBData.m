@@ -19,7 +19,6 @@ pars.UPPBD           = full(Umat);
 pars.PP              = PP;
 D                    = sparse(D);
  
-
 %PREEEDM% ------------------------------------------------------------------
 pars.draw  = 1; 
 Out        = PREEEDM(D,dim,pars); 

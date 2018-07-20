@@ -3,7 +3,6 @@
 addpath('funs');
 addpath('funs/MCsetup');
 addpath('funs/PDBdata');
-addpath('data');
 addpath('PREEEDM');
 
 

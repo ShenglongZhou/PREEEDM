@@ -1,11 +1,11 @@
 clc; clear; close all;  
  
 %Initialization% ----------------------------------------------------------
-test    = 1;
+test    = 1; % =2
 proname = {'1LFB.mat','1RGS.mat'};
-load(proname{1})  
+load(proname{test})  
 
-Inputs.noiseType     = 'normal';%uniform 
+Inputs.noiseType     = 'normal';% uniform 
 Inputs.sparseLevel   = 0.5;     % Note: use 0.3-1.0 to make problem easier
 Inputs.noiseLevel    = 0.1; 
 Inputs.radius        = 6;

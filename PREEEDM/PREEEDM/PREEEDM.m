@@ -128,7 +128,8 @@ if isfield(pars,'UPPBD')
     U(U==inf)=UB;
 end 
 if isfield(pars,'range')   
-    H1 = 1-H; rs =(pars.range/scale)^2
+    H1 = 1-H; 
+    rs = (pars.range/scale)^2;
     L  = L.*H  + H1*rs;                           
     U  = U.*H1 + H*rs;
 end

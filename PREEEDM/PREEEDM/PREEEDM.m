@@ -102,7 +102,7 @@ fSD   = full(SD);
 scale = max(fSD(:)); 
 Do    = D;
 if    scale<=10; scale=1; 
-else  D=D./scale; fSD=fSD./scale; 
+else; D=D./scale; fSD=fSD./scale; 
 end
 
 D  = full(D);
@@ -119,19 +119,20 @@ L  = zeros(n);
 U  = UB*ones(n);
 
 if isfield(pars,'LOWBD')   
-    L  = (pars.LOWBD/scale).^2;  
+   L  = (pars.LOWBD/scale).^2;  
 end
 if isfield(pars,'UPPBD')   
-    U  = (pars.UPPBD/scale).^2;
-    HU = spones(tril(U,-1));
-    if nnz(HU)<(n^2-n)/2; U=U+(1-HU-HU')*UB; end   % if U_{ij}=0 set U_{ij}=UB
-    U(U==inf)=UB;
+   U  = (pars.UPPBD/scale).^2;
+   HU = spones(U);
+   if nnz(HU)<(n^2-n); U=U+(1-HU).*UB; end
+   if max(U(:))==inf;  U(U==inf)=UB;   end 
 end 
+
 if isfield(pars,'range')   
-    H1 = 1-H; 
-    rs = (pars.range/scale)^2;
-    L  = L.*H  + H1*rs;                           
-    U  = U.*H1 + H*rs;
+   H1 = 1-H; 
+   rs = (pars.range/scale)^2;
+   L  = L.*H  + H1*rs;                           
+   U  = U.*H1 + H*rs;
 end
 
 L(T,T)       = Z(T,T);      
@@ -167,19 +168,19 @@ for iter=1:itmax
      ErrObj  = abs(frZo-frZ)/(1+rho+frZo);
      fprintf('Iter: %3d  ErrEig: %.3e  ErrObj: %.3e\n',iter, ErrEig, ErrObj);
  
-     if  iter>=5 & ErrEig<Eigtol & ErrObj<Objtol; break; end
+     if  iter>=5 && ErrEig<Eigtol && ErrObj<Objtol; break; end
      
      % update rho
      OErr(iter,1)=ErrObj; EErr(iter,1)=ErrEig;
-     if  ErrEig>Eigtol & ErrObj < Objtol/5&...
-         iter>=10 & var(EErr(iter-9:iter,1))/ErrEig<1e-4
+     if  ErrEig>Eigtol && ErrObj < Objtol/5&&...
+         iter>=10 && var(EErr(iter-9:iter,1))/ErrEig<1e-4
          rho = 1.25*rho; Hr = H/rho; 
          Objtol = min(Objtol, max(Objtol/1.1, ErrObj));
      end
-     if  ErrObj>Objtol & ErrEig<Eigtol/5; 
+     if  ErrObj>Objtol && ErrEig<Eigtol/5  
          if iter<=5
          rho = 0.5*rho; Hr = H/rho;
-         elseif iter>5 & var(OErr(iter-4:iter,1))/ErrObj<1e-4
+         elseif iter>5 && var(OErr(iter-4:iter,1))/ErrObj<1e-4
          rho = 0.75*rho; Hr = H/rho;
          end
      end
@@ -201,7 +202,7 @@ if isfield(pars, 'PP')
     Out.Time      = Out.Time+Out.rTime;
     Out.RMSD      = sqrt(FNorm(pars.PP(:,T1)-Out.X)/(n-m));
     Out.rRMSD     = sqrt(FNorm(pars.PP(:,T1)-Out.rX)/(n-m));   
-    if isfield(pars, 'draw') & pars.draw
+    if isfield(pars, 'draw') && pars.draw
         figure
         subplot(211)
         plot_SNL(Out.X,Out.RMSD,0,pars);  

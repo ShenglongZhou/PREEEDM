@@ -224,7 +224,7 @@ else
     Out.f         = sqrt(FNorm(sqrt(Z(H~=0))-Do(H~=0))/FNorm(Do(H~=0)));
     fprintf('------------------------------------------------\n');
     fprintf('Time:      %1.3fsec\n',     Out.Time)
-    fprintf('Stress:    %1.2e \n',    Out.stress)    
+    fprintf('Stress:    %1.2e \n',    Out.f)    
 end
 
 end

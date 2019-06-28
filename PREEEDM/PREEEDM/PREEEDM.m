@@ -23,6 +23,7 @@ function Out = PREEEDM(D,dim,pars)
 %                    PP = [PA, PS]
 %                    PA -- (dim x m) matrix of coordinates of m anchors
 %                    PS -- (dim x (n-m)) matrix of coordinates of (n-m) sensors
+%        pars.rho  : penalty parameter, default one rho = sqrt(n)*nnz(D)*max(D(:))/n^2
 %        pars.LOWBD: upper bound i.e., L=pars.LOWBD.^2, Z_{ij}>=L_{ij}
 %        pars.UPPBD: lower bound i.e., U=pars.LOWBD.^2, Z_{ij}<=U_{ij}
 %                    Note: elements of pars.LOWBD and pars.UPPBD are UNSQUARED distances                          
@@ -142,7 +143,9 @@ U(1:n+1:end) = 0;
  
 Z      = min( U,  max(L, Z ));  
 rho    = sqrt(n)*rate*max(D(:));%sqrt(nD)/log(n)/max(D(:))
-
+if isfield(pars,'rho')  
+rho    = pars.rho; 
+end
  
 Hr     = H/rho;
 TH     = find(Hr>0);  

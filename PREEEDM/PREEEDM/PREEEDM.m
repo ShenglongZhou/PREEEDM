@@ -122,6 +122,7 @@ U  = UB*ones(n);
 if isfield(pars,'LOWBD')   
    L  = (pars.LOWBD/scale).^2;  
 end
+
 if isfield(pars,'UPPBD')   
    U  = (pars.UPPBD/scale).^2;
    HU = spones(U);

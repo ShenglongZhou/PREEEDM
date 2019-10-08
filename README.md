@@ -1,2 +1,6 @@
 # PREEEDM
-MATLAB code for "S.L. Zhou, N.H. Xiu and H.-D. Qi, Robust Euclidean Embedding via EDM Optimization,2018'
+
+The Matlab code was created based on algorithm proposed by
+S. Zhou, N. Xiu and H. Qi, Robust Euclidean Embedding via EDM Optimisation, Mathematical Programming Computation, 2019.
+
+Please give credit if you are interested in it.

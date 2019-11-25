@@ -28,8 +28,8 @@ function Out = PREEEDM(D,dim,pars)
 %        pars.UPPBD: lower bound i.e., U=pars.LOWBD.^2, Z_{ij}<=U_{ij}
 %                    Note: elements of pars.LOWBD and pars.UPPBD are UNSQUARED distances                          
 %        pars.range: the communication range of two points, which means
-%                    upper bound for Z_{ij}<=pars.range^2 if (D_{ij}>0  & i~=j)
-%                    lower bound for Z_{ij}>=pars.range^2 if (D_{ij}==0 & i~=j)
+%                    lower bound for Z_{ij}<=pars.range^2 if (D_{ij}>0  & i~=j)
+%                    upper bound for Z_{ij}>=pars.range^2 if (D_{ij}==0 & i~=j)
 %                    Note: pars.range is particular for SNL problem. If pars.range
 %                    exists, no need pars.LOWBD and pars.UPPBD
 %        pars.Otol : tolerance for objective,  default Otol=nnz(D)*1e-4 

@@ -3,7 +3,7 @@ function  plot_SNL(X,RMSD,refine,pars,CM)
 % RMSD   -- Root Mean Square Distance (RMSD) before refinement if refine=0
 %           Root Mean Square Distance (RMSD) after refinement  if refine=1
 % refine -- 0 plot X before refinement
-%           1 plot X before refinement
+%           1 plot X after  refinement
 % pars   -- pars.PP:  dim-by-n matrix of coordinates of n points with first
 %                     m(>=0) columns being anchors
 %           pars.m:   anchors' number

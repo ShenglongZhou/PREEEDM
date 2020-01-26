@@ -295,7 +295,7 @@ function Xs= procrustes_zhou(m0, PP, D0)
     if m0>0
     A      = PP(:,1:m0);
    [Q, ~, a0, p0] = procrustes_qi(A,X0(:,1:m0));	
-	Z0     = Q'*(X0-p0(:, ones(n0, 1))) + a0(:, ones(n0, 1)); 
+    Z0     = Q'*(X0-p0(:, ones(n0, 1))) + a0(:, ones(n0, 1)); 
     Xs     = Z0(:,m0+1:n0);
     Xa     = Z0(:, 1:m0);
     %Xs    = Xs*mean(sum(Xa.*A)./sum(Xa.^2));

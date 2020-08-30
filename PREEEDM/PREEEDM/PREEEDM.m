@@ -54,7 +54,7 @@ function Out = PREEEDM(D,dim,pars)
 %
 % Refinement step is taken from Kim-Chaun Toh SNLSDP solver
 %
-% Send your comments and suggestions to   [ sz3g14@soton.ac.uk ]                       
+% Send your comments and suggestions to   [ shenglong.zhou@soton.ac.uk ]                       
 %
 % Warning: Accuracy may not be guaranteed!!!!!   
 %

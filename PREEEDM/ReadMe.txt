@@ -12,8 +12,9 @@ To implement this solver, please
 
 This source code contains the algorithm described in:
 
-[1] S.L. Zhou, N.H. Xiu and H.-D. Qi (2018),
-"Robust Euclidean Embedding via EDM Optimization".
+[1] S.L. Zhou, N.H. Xiu and H.-D. Qi (2019),
+Robust Euclidean Embedding via EDM Optimisation, Mathematical Programming Computation, 12:337–387.
+
 
 Please give credits to this paper if you use the code for your research.
 

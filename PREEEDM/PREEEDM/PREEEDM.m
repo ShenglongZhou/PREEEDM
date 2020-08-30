@@ -86,7 +86,7 @@ end
 if rate<0.9
     DD = D.*D;        
     fprintf('\nContruct the shortest paths...\n');
-    ts=tic;
+    ts = tic;
     SD = graphallshortestpaths(sparse(sqrt(DD)));
     if any(SD == Inf)
     error('The neighborhood graph is not connected, increase range!');
@@ -95,7 +95,7 @@ if rate<0.9
     fprintf('Done the shortest paths by using %1.2f seconds\n',toc(ts));
 else
     SD = D;
-   fprintf('No shortest paths calculated!\n');
+    fprintf('No shortest paths calculated!\n');
 end
 
 % scale the elements of D ---------------------------------------------

@@ -54,7 +54,7 @@ function Out = PREEEDM(D,dim,pars)
 %
 % Refinement step is taken from Kim-Chaun Toh SNLSDP solver
 %
-% Send your comments and suggestions to   [ shenglong.zhou@soton.ac.uk ]                       
+% Send your comments and suggestions to   [ slzhou2021@163.com ]                       
 %
 % Warning: Accuracy may not be guaranteed!!!!!   
 %
@@ -148,10 +148,12 @@ if isfield(pars,'rho')
 rho    = pars.rho; 
 end
  
+FNorm  = @(var)norm(var,'fro')^2;
+WNorm  = @(var)norm(var(:),1);
 Hr     = H/rho;
 TH     = find(Hr>0);  
 PZ     = ProjKr(-Z,r);
-frZ    = sum(sum(abs(sqrt(Z(TH))-D(TH)))) +(rho/2)*FNorm(Z+PZ);
+frZ    = WNorm( sqrt(Z(TH))-D(TH) ) +(rho/2)*FNorm(Z+PZ);
 OErr   = zeros(itmax,1);
 EErr   = zeros(itmax,1);
 fprintf('Start to run ... \n');
@@ -168,7 +170,7 @@ for iter=1:itmax
      gZ      = FNorm(Z+PZ);
      ErrEig  = gZ/FNorm(JXJ(-Z));
      frZo    = frZ;      
-     frZ     = sum(sum(abs(sqrt(Z(TH))-D(TH)))) +(rho/2)*gZ;
+     frZ     = WNorm( sqrt(Z(TH))-D(TH) ) +(rho/2)*gZ;
      ErrObj  = abs(frZo-frZ)/(1+rho+frZo);
      fprintf('Iter: %3d  ErrEig: %.3e  ErrObj: %.3e\n',iter, ErrEig, ErrObj);
  
@@ -260,13 +262,7 @@ end
 
 
 % -------------------------------------------------------------------------
-function fn= FNorm(A)
-% Compute the Frobenius norm of A, i.e., ||A||_F^2
-    fn=sum(sum(A.*A));
-end
-
-% -------------------------------------------------------------------------
-function Z0= ProjKr(A,r)
+function Z0    = ProjKr(A,r)
 % The projection of A on cone K_+^n(r)  
         JAJ    = JXJ(A);
         JAJ    = (JAJ+JAJ')/2;
@@ -292,17 +288,16 @@ function Xs= procrustes_zhou(m0, PP, D0)
     JDJ    = -(JDJ+JDJ')/4;
     [U1,D1]= eigs(JDJ,r0);   
     X0     = (D1.^(1/2))*(U1');   
-    if m0>0
-    A      = PP(:,1:m0);
-   [Q, ~, a0, p0] = procrustes_qi(A,X0(:,1:m0));	
-    Z0     = Q'*(X0-p0(:, ones(n0, 1))) + a0(:, ones(n0, 1)); 
-    Xs     = Z0(:,m0+1:n0);
-    Xa     = Z0(:, 1:m0);
-    %Xs    = Xs*mean(sum(Xa.*A)./sum(Xa.^2));
-    Xs     = Xs*max(1,sum(sum(Xa.*A))/sum(sum(Xa.^2)));
+    if  m0 > 0
+        A  =    PP(:,1:m0);
+       [Q, ~, a0, p0] = procrustes_qi(A,X0(:,1:m0));	
+        Z0 = Q'*(X0-p0(:, ones(n0, 1))) + a0(:, ones(n0, 1)); 
+        Xs = Z0(:,m0+1:n0);
+        Xa = Z0(:, 1:m0);
+        Xs = Xs*max(1,sum(sum(Xa.*A))/norm(Xa,'fro')^2);
     else        
-    [~,~,Map]= procrustes(PP',X0'); 
-    Xs       = (Map.b*Map.T')*X0 + diag(Map.c(1,:))*ones(size(X0));
+        [~,~,Map]= procrustes(PP',X0'); 
+        Xs = (Map.b*Map.T')*X0 + diag(Map.c(1,:))*ones(size(X0));
     end
 end
 

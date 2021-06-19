@@ -7,11 +7,11 @@ function x =dcroot( w, a, Ind, d2, lbd, ubd  )
 % where a>=0, Ind=find(a>0)
 
     x  = min( ubd, max( lbd, w ) ); 
-    I1 = Ind(find(d2(Ind)<=lbd(Ind)));  
+    I1 = Ind( d2(Ind)<=lbd(Ind) );  
     if ~ isempty(I1)        
          x(I1) = dcroot_plus(w(I1),a(I1),lbd(I1),ubd(I1));
     end
-    I2 = Ind(find(d2(Ind)>=ubd(Ind))); 
+    I2 = Ind( d2(Ind)>=ubd(Ind) ); 
     if ~ isempty(I2)        
          x(I2) = dcroot_minus(w(I2),a(I2),lbd(I2),ubd(I2));
     end
